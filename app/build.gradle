@@ -31,6 +31,7 @@ dependencies {
     testImplementation libs.junit.jupiter
 
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
 
     testImplementation "io.grpc:grpc-testing:${grpcVersion}"
     testImplementation "io.grpc:grpc-inprocess:${grpcVersion}"
@@ -60,7 +61,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'hash_table.App'
+    mainClass = project.hasProperty('mainClass') ? project.getProperty('mainClass') : 'hash_table.App'
 }
 
 tasks.named('test') {

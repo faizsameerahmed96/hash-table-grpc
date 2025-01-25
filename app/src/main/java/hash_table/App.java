@@ -3,12 +3,27 @@
  */
 package hash_table;
 
+import io.grpc.Server;
+import io.grpc.ServerBuilder;
+import io.grpc.stub.StreamObserver;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+    public static void main(String[] args) throws Exception {
+        Server server = ServerBuilder.forPort(8005).addService(new HelloServiceImpl()).build().start();
+
+        System.out.println("Server started, listening on " + server.getPort());
+
+        server.awaitTermination();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    static class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
+        @Override
+        public void sayHello(HelloProto.HelloRequest request, StreamObserver<HelloProto.HelloResponse> responseObserver) {
+            String message = "Hello, " + request.getName();
+            HelloProto.HelloResponse response = HelloProto.HelloResponse.newBuilder().setMessage(message).build();
+
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+        }
     }
 }
