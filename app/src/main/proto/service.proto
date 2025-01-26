@@ -1,16 +1,27 @@
 syntax = "proto3";
 
 option java_package = "hash_table";
-option java_outer_classname = "HelloProto";
+option java_outer_classname = "HashTable";
 
-service HelloService {
-  rpc SayHello (HelloRequest) returns (HelloResponse);
+service HashTableService {
+  rpc Put (PutRequest) returns (PutReply);
+  rpc Get (GetRequest) returns (GetReply);
 }
 
-message HelloRequest {
-  string name = 1;
+message PutRequest {
+  string key = 1;
+  string value = 2;
 }
 
-message HelloResponse {
-  string message = 1;
+message PutReply {
+  string key = 1;
+  string value = 2;
+}
+
+message GetRequest {
+  string key = 1;
+}
+
+message GetReply {
+  string value = 2;
 }

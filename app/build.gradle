@@ -61,7 +61,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = project.hasProperty('mainClass') ? project.getProperty('mainClass') : 'hash_table.App'
+    mainClass = project.hasProperty('mainClass') ? project.getProperty('mainClass') : 'hash_table.HashTableServer'
 }
 
 tasks.named('test') {
